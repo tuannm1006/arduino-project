@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control</title>
+    <link rel="stylesheet" href="./themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="row">
+        <div class="forward">
+          <button
+            class="ti-arrow-up"
+            onclick="control(this.value)"
+            value="forward"
+          ></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="turn-left">
+          <button
+            class="ti-arrow-left"
+            onclick="control(this.value)"
+            value="left"
+          ></button>
+        </div>
+        <div class="stop">
+          <button
+            class="ti-move"
+            onclick="control(this.value)"
+            value="stop"
+          ></button>
+        </div>
+        <div class="turn-right">
+          <button
+            class="ti-arrow-right"
+            onclick="control(this.value)"
+            value="right"
+          ></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="backward">
+          <button
+            class="ti-arrow-down"
+            onclick="control(this.value)"
+            value="backward"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <script>
+      var url = window.location.host;
+      var ws = new WebSocket("ws://" + url);
+
+      console.log(url);
+      console.log("connecting...");
+      let status = "stop";
+
+      ws.onopen = function () {
+        console.log("connected...");
+      };
+
+      function control(val) {
+        status = val;
+        console.log(status);
+        ws.send(status);
+      }
+    </script>
+  </body>
+</html>
